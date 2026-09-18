@@ -1,71 +1,64 @@
 #PREDICADOS
-estudiantes = {"Juan","Arturo","José"}
-profesores = {"Alonso","Maria"}
-clases = {"Calculo diferencial","Programacion logica"}
-num_control = {"61720312", "61720313", "61720314"}
-grupos = {"2SA", "2IA"}
-salones = {"202", "404"}
-carreras = {"Sistemas", "Industriales"}
-num_empleado = {"19357218", "19357221"}
+estudiantes = ["Juan","Arturo","José"]
+profesores = ["Alonso","Maria"]
+clases = ["Calculo diferencial","Programacion logica"]
+num_control = ["61720312", "61720313", "61720314"]
+grupos = ["2SA", "2IA"]
+salones = ["202", "404"]
+carreras = ["Sistemas", "Industriales"]
+num_empleado = ["19357218", "19357221"]
 
 #UNIVERSO
 
 #Estudiantes
 pertenece_grupo = {
-    ("Juan", "2SA"),
-    ("Arturo", "2SA"),
-    ("José", "2IA")
+    "Juan":["2SA"], 
+    "Arturo":["2SA"],
+    "José":["2IA"]
 }
-
 asiste_clase = {
-    ("Juan", "Cálculo Diferencial"),
-    ("Juan", "Programación Lógica"),
-    ("Arturo", "Cálculo Diferencial"),
-    ("Arturo", "Programación Lógica"),
-    ("José", "Cálculo Diferencial")
+    "Juan":["Cálculo Diferencial", "Programación Lógica"],
+    "Arturo":["Cálculo Diferencial", "Programación Lógica"],
+    "José":["Cálculo Diferencial"],
 }
-
 asiste_salon = {
-    ("Juan", "202"),
-    ("Juan", "404"),
-    ("Arturo", "202"),
-    ("Arturo", "404"),
-    ("José", "202")
+    "Juan":["202", "404"],
+    "Arturo":["202", "404"],
+    "José":["202"]
 }
 
 tiene_num_control = {
-    ("Juan", "61720312"),
-    ("Arturo", "61720313"),
-    ("José", "61720314")
+    "Juan":["61720312"], 
+    "Arturo":["61720313"],
+    "José":["61720314"]
+}
+cursa_carrera = {
+    "Juan":["Sistemas"], 
+    "Arturo":["Sistemas"],
+    "José":["Industrial"]
 }
 
-cursa_carrera = {
-    ("Juan", "Sistemas"),
-    ("Arturo", "Sistemas"),
-    ("José", "Industrial")
-}
 
 #Profesores
 enseña_clase = {
-    ("Alonso", "Cálculo Diferencial"),
-    ("Maria", "Programación Lógica")
+    "Alonso":["Cálculo Diferencial"],
+    "Maria":["Programación Lógica"]
 }
 
 trabaja_salon = {
-    ("Alonso", "202"),
-    ("Maria", "404")
+    "Alonso":["202"],
+    "Maria":["404"]
+}
+tiene_num_empleado = {
+    "Alonso":["19357218"],
+    "Maria":["19357221"]
 }
 
-tiene_num_empleado = {
-    ("Alonso", "19357218"),
-    ("Maria", "19357221")
-}
 
 #FUNCIONES
-
 def hacer_consulta(nombre, relacion):
     def funcion(x, y):
-        resultado = (x, y)in relacion
+        resultado = y in relacion.get(x, [])
         print(f"{nombre}({x}, {y}) = {'Verdadero' if resultado else 'Falso'}")
         return resultado
     return funcion
@@ -100,7 +93,7 @@ Enseña("Alonso", "Cálculo Diferencial")
 Enseña("José", "Programación Lógica")
 
 AsisteClase("Juan", "Cálculo Diferencial")
-AsisteClase("Jose", "Programación Lógica")
+AsisteClase("José", "Programación Lógica")
 
 TieneNumEmpleado("Maria", "19357221")
 TieneNumEmpleado("Juan", "19357221")
